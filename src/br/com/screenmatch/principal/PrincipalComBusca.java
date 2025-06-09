@@ -1,5 +1,8 @@
 package br.com.screenmatch.principal;
 
+import br.com.screenmatch.modelos.Titulo;
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -23,5 +26,10 @@ public class PrincipalComBusca {
 
         String json = response.body();
         System.out.println(json);
+
+        Gson gson = new Gson();
+        //serializando de objeto json para classe java
+        Titulo meuTitulo = gson.fromJson(json, Titulo.class);
+        System.out.println(meuTitulo);
     }
 }
