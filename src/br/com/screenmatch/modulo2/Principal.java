@@ -9,7 +9,11 @@ public class Principal {
           {
             "nome" : "Karen",
             "idade" : 30,
-            "cidade" : "Santo André"
+            "cidade" : "Santo André",
+            "cpf" : 12,
+            "nomeMae" : "",
+            "nomePai" : "Cicrano",
+            "limiteCartao" : 19000,00
           }
         """;
 
