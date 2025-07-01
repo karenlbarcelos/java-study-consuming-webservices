@@ -1,5 +1,7 @@
 package br.com.screenmatch.modelos;
 
+import br.com.screenmatch.exception.ErroDeConversaoDeAnoException;
+
 public class Titulo implements Comparable<Titulo> {
 
     //@SerializedName("Title")
@@ -19,6 +21,9 @@ public class Titulo implements Comparable<Titulo> {
 
     public Titulo(TituloOMDB meuTituloOmdb){
         this.nome = meuTituloOmdb.title();
+        if(meuTituloOmdb.year().length() > 4){
+            throw new ErroDeConversaoDeAnoException("Nao foi possivel converter o ano. Ha mais de 4 caracteres");
+        }
         this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
         this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().substring(0, 2));
     }
