@@ -26,6 +26,7 @@ public class PrincipalComBusca {
 
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .setPrettyPrinting() //organiza a exibicao do json
                 .create();
 
         while (!busca.equalsIgnoreCase("sair")) {
@@ -74,7 +75,7 @@ public class PrincipalComBusca {
         System.out.println(titulos);
 
         FileWriter escrita = new FileWriter("filmes.json");
-        escrita.write(gson.toJson(titulos));
+        escrita.write(gson.toJson(titulos)); //conversao de texto para json
         escrita.close();
         System.out.println("Finalizado com sucesso.");
     }
