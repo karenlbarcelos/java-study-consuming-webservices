@@ -21,19 +21,23 @@ public class PrincipalComBusca {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         Scanner leitura = new Scanner(System.in);
-        var busca = "";
+        String busca = "";
         List<Titulo> titulos = new ArrayList<>();
+
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .create();
 
         while (!busca.equalsIgnoreCase("sair")) {
 
             System.out.println("Digite um filme para pesquisa: ");
-            var pesquisa = leitura.nextLine();
+            busca = leitura.nextLine();
 
-            if(busca.equalsIgnoreCase("sair")){
+            if (busca.equalsIgnoreCase("sair")) {
                 break;
             }
 
-            String endereco = "https://www.omdbapi.com/?t=" + pesquisa.replace(" ", "+") + "&apikey=11d8b8c7";
+            String endereco = "https://www.omdbapi.com/?t=" + busca.replace(" ", "+") + "&apikey=11d8b8c7";
             try {
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest request = HttpRequest.newBuilder()
@@ -43,10 +47,6 @@ public class PrincipalComBusca {
 
                 String json = response.body();
                 System.out.println(json);
-
-                Gson gson = new GsonBuilder()
-                        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                        .create();
 
                 //serializando de objeto json para classe java
                 TituloOMDB meuTituloOmdb = gson.fromJson(json, TituloOMDB.class);
@@ -69,11 +69,13 @@ public class PrincipalComBusca {
             } catch (ErroDeConversaoDeAnoException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println("Para finalizar, digite sair");
-            busca = leitura.nextLine();
         }
 
         System.out.println(titulos);
+
+        FileWriter escrita = new FileWriter("filmes.json");
+        escrita.write(gson.toJson(titulos));
+        escrita.close();
         System.out.println("Finalizado com sucesso.");
     }
 }
