@@ -80,7 +80,8 @@ public class Titulo implements Comparable<Titulo> {
 
     @Override
     public int compareTo(Titulo outroTitulo) {
-        return this.getNome().compareTo(outroTitulo.getNome());
+        return this.getNome()
+                .compareTo(outroTitulo.getNome());
     }
 
     @Override
